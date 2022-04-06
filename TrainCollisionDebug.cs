@@ -2,11 +2,10 @@ using Oxide.Core.Plugins;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using static TrainEngine;
 
 namespace Oxide.Plugins
 {
-    [Info("Train Collision Debug", "WhiteThunder", "0.2.0")]
+    [Info("Train Collision Debug", "WhiteThunder", "0.2.1")]
     [Description("Debugs workcart collision issues.")]
     internal class TrainCollisionDebug : CovalencePlugin
     {
@@ -63,7 +62,7 @@ namespace Oxide.Plugins
             }
         }
 
-        private bool AreWorkcartsOverlapping(BaseTrain workcart, BaseTrain otherWorkcart, float proximityTolerance, out float distance)
+        private bool AreWorkcartsOverlapping(TrainEngine workcart, TrainEngine otherWorkcart, float proximityTolerance, out float distance)
         {
             distance = Vector3.Distance(workcart.transform.position, otherWorkcart.transform.position);
             return distance < proximityTolerance;
@@ -185,7 +184,7 @@ namespace Oxide.Plugins
                 if (otherWorkcart == null)
                     continue;
 
-                if (AreWorkcartsOverlapping(trigger.owner, otherWorkcart, proximityTolerance, out distance))
+                if (AreWorkcartsOverlapping(trigger.owner as TrainEngine, otherWorkcart, proximityTolerance, out distance))
                 {
                     return true;
                 }
